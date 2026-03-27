@@ -34,51 +34,61 @@ function App() {
       <AnimatePresence>
         {!introFinished && (
           <motion.div 
-            className="logo-intro"
+            className="logo-intro ink-intro"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: -100 }}
             transition={{ duration: 1, ease: "easeInOut" }}
           >
             <div className="reveal-container">
-              {/* Animated Path */}
-              <svg viewBox="0 0 200 200" className="reveal-svg">
-                <motion.path
-                  d="M100,20 C140,20 180,60 180,100 C180,140 140,180 100,180 C60,180 20,140 20,100 C20,60 60,20 100,20"
-                  fill="transparent"
-                  stroke="#111"
-                  strokeWidth="2"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 2, ease: "easeInOut" }}
-                />
-                
-                {/* Secondary flowing line */}
-                <motion.path
-                  d="M100,40 C110,40 120,50 120,60 C120,70 110,80 100,80 C90,80 80,70 80,60 C80,50 90,40 100,40"
-                  fill="transparent"
-                  stroke="#111"
-                  strokeWidth="1.5"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
-                />
+              {/* Complex Ink Swirls */}
+              <svg viewBox="0 0 400 400" className="ink-svg">
+                {[...Array(6)].map((_, i) => (
+                  <motion.path
+                    key={i}
+                    d="M200,50 C280,50 350,120 350,200 C350,280 280,350 200,350 C120,350 50,280 50,200 C50,120 120,50 200,50"
+                    fill="transparent"
+                    stroke="#111"
+                    strokeWidth={1 + i * 0.5}
+                    initial={{ pathLength: 0, opacity: 0, rotate: i * 60 }}
+                    animate={{ 
+                      pathLength: [0, 1, 0.8], 
+                      opacity: [0, 1, 0.4],
+                      rotate: i * 60 + 360 
+                    }}
+                    transition={{ 
+                      duration: 3 + i * 0.5, 
+                      ease: "easeInOut",
+                      repeat: 0,
+                      delay: i * 0.2
+                    }}
+                  />
+                ))}
               </svg>
 
-              <motion.img 
-                src={logo} 
-                alt="YS Logo" 
-                className="intro-logo"
-                initial={{ opacity: 0, scale: 0.8, filter: 'grayscale(100%)' }}
-                animate={{ opacity: 1, scale: 1, filter: 'grayscale(0%)' }}
-                transition={{ 
-                  duration: 2.5, 
-                  delay: 1,
-                  ease: [0.16, 1, 0.3, 1]
-                }}
-                onAnimationComplete={() => {
-                  setTimeout(() => setIntroFinished(true), 1200);
-                }}
-              />
+              <div className="logo-wrapper">
+                {/* White Logo (Initial) */}
+                <motion.img 
+                  src={logo} 
+                  alt="YS Logo" 
+                  className="intro-logo logo-white"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 2, delay: 0.5 }}
+                />
+                
+                {/* Black Logo (Final) */}
+                <motion.img 
+                  src={logo} 
+                  alt="YS Logo" 
+                  className="intro-logo logo-black"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1.5, delay: 3.5 }}
+                  onAnimationComplete={() => {
+                    setTimeout(() => setIntroFinished(true), 1000);
+                  }}
+                />
+              </div>
             </div>
           </motion.div>
         )}
