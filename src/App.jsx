@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     // Reveal content after the dramatic intro
-    const timer = setTimeout(() => setShowContent(true), 4000);
+    const timer = setTimeout(() => setShowContent(true), 5000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -69,12 +69,12 @@ function App() {
                 {/* White Logo (Initial) */}
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8, rotateY: 0 }}
-                  animate={{ opacity: [1, 1, 0], scale: 1, rotateY: 1080 }}
+                  animate={{ opacity: [1, 1, 0], scale: 1, rotateY: 1080 }} // 3 spins
                   transition={{ 
-                    duration: 4, 
+                    duration: 5, 
                     times: [0, 0.8, 1], 
                     delay: 0.5,
-                    rotateY: { duration: 2, delay: 3.5, ease: "easeInOut" }
+                    rotateY: { duration: 3.5, delay: 2.0, ease: "easeInOut" }
                   }}
                   style={{ width: '100%', height: '100%', position: 'absolute' }}
                 >
@@ -85,13 +85,13 @@ function App() {
                 <motion.div 
                   layoutId="main-logo-container"
                   initial={{ opacity: 0, rotateY: 0 }}
-                  animate={{ opacity: 1, rotateY: 1080 }}
+                  animate={{ opacity: 1, rotateY: 1080 }} // 3 spins
                   transition={{ 
-                    opacity: { duration: 0.5, delay: 3.2 },
-                    rotateY: { duration: 2, delay: 3.5, ease: "easeInOut" }
+                    opacity: { duration: 0.5, delay: 2.5 },
+                    rotateY: { duration: 3.5, delay: 2.0, ease: "easeInOut" }
                   }}
                   onAnimationComplete={() => {
-                    setTimeout(() => setIntroFinished(true), 200);
+                    setTimeout(() => setIntroFinished(true), 400); // slight pause before flying off
                   }}
                   style={{ width: '100%', height: '100%', position: 'absolute' }}
                 >
@@ -112,7 +112,11 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 1 }}
             >
-              <motion.div layoutId="main-logo-container" style={{ height: 40, width: 40 }}>
+              <motion.div 
+                layoutId="main-logo-container" 
+                style={{ height: 40, width: 40 }}
+                transition={{ layout: { duration: 1.5, ease: [0.16, 1, 0.3, 1] } }}
+              >
                 <img src={logo} alt="YS Logo" className="logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </motion.div>
               <button className="btn">Get in Touch</button>
