@@ -65,36 +65,39 @@ function App() {
                 ))}
               </svg>
 
-              <motion.div 
-                className="logo-wrapper"
-                initial={{ rotateY: 0 }}
-                animate={{ rotateY: 1080 }}
-                transition={{ duration: 2, delay: 3.5, ease: "easeInOut" }}
-                onAnimationComplete={() => {
-                  setTimeout(() => setIntroFinished(true), 200);
-                }}
-              >
+              <div className="logo-wrapper">
                 {/* White Logo (Initial) */}
-                <motion.img 
-                  src={logo} 
-                  alt="YS Logo" 
-                  className="intro-logo logo-white"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: [1, 1, 0], scale: 1 }}
-                  transition={{ duration: 4, times: [0, 0.8, 1], delay: 0.5 }}
-                />
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8, rotateY: 0 }}
+                  animate={{ opacity: [1, 1, 0], scale: 1, rotateY: 1080 }}
+                  transition={{ 
+                    duration: 4, 
+                    times: [0, 0.8, 1], 
+                    delay: 0.5,
+                    rotateY: { duration: 2, delay: 3.5, ease: "easeInOut" }
+                  }}
+                  style={{ width: '100%', height: '100%', position: 'absolute' }}
+                >
+                  <img src={logo} alt="YS Logo" className="intro-logo logo-white" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </motion.div>
                 
                 {/* Black Logo (Final) */}
-                <motion.img 
-                  layoutId="main-logo"
-                  src={logo} 
-                  alt="YS Logo" 
-                  className="intro-logo logo-black"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 3.2 }}
-                />
-              </motion.div>
+                <motion.div 
+                  layoutId="main-logo-container"
+                  initial={{ opacity: 0, rotateY: 0 }}
+                  animate={{ opacity: 1, rotateY: 1080 }}
+                  transition={{ 
+                    opacity: { duration: 0.5, delay: 3.2 },
+                    rotateY: { duration: 2, delay: 3.5, ease: "easeInOut" }
+                  }}
+                  onAnimationComplete={() => {
+                    setTimeout(() => setIntroFinished(true), 200);
+                  }}
+                  style={{ width: '100%', height: '100%', position: 'absolute' }}
+                >
+                  <img src={logo} alt="YS Logo" className="intro-logo logo-black" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         )}
@@ -109,7 +112,9 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 1 }}
             >
-              <motion.img layoutId="main-logo" src={logo} alt="YS Logo" className="logo" />
+              <motion.div layoutId="main-logo-container" style={{ height: 40, width: 40 }}>
+                <img src={logo} alt="YS Logo" className="logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </motion.div>
               <button className="btn">Get in Touch</button>
             </motion.div>
           </nav>
