@@ -36,7 +36,7 @@ function App() {
           <motion.div 
             className="logo-intro ink-intro"
             initial={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -100 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 1, ease: "easeInOut" }}
           >
             <div className="reveal-container">
@@ -65,30 +65,36 @@ function App() {
                 ))}
               </svg>
 
-              <div className="logo-wrapper">
+              <motion.div 
+                className="logo-wrapper"
+                initial={{ rotateY: 0 }}
+                animate={{ rotateY: 1080 }}
+                transition={{ duration: 2, delay: 3.5, ease: "easeInOut" }}
+                onAnimationComplete={() => {
+                  setTimeout(() => setIntroFinished(true), 200);
+                }}
+              >
                 {/* White Logo (Initial) */}
                 <motion.img 
                   src={logo} 
                   alt="YS Logo" 
                   className="intro-logo logo-white"
                   initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 2, delay: 0.5 }}
+                  animate={{ opacity: [1, 1, 0], scale: 1 }}
+                  transition={{ duration: 4, times: [0, 0.8, 1], delay: 0.5 }}
                 />
                 
                 {/* Black Logo (Final) */}
                 <motion.img 
+                  layoutId="main-logo"
                   src={logo} 
                   alt="YS Logo" 
                   className="intro-logo logo-black"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 1.5, delay: 3.5 }}
-                  onAnimationComplete={() => {
-                    setTimeout(() => setIntroFinished(true), 1000);
-                  }}
+                  transition={{ duration: 0.5, delay: 3.2 }}
                 />
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         )}
@@ -103,7 +109,7 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 1 }}
             >
-              <img src={logo} alt="YS Logo" className="logo" />
+              <motion.img layoutId="main-logo" src={logo} alt="YS Logo" className="logo" />
               <button className="btn">Get in Touch</button>
             </motion.div>
           </nav>
