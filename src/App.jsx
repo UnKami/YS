@@ -51,15 +51,15 @@ function App() {
                     strokeWidth={1 + i * 0.5}
                     initial={{ pathLength: 0, opacity: 0, rotate: i * 60 }}
                     animate={{ 
-                      pathLength: [0, 1, 0.8], 
-                      opacity: [0, 1, 0.4],
-                      rotate: i * 60 + 360 
+                      pathLength: [0, 1, 0.8, 0], 
+                      opacity: [0, 1, 0.6, 0],
+                      rotate: [i * 60, i * 60 + 180, i * 60 + 360] 
                     }}
                     transition={{ 
-                      duration: 3 + i * 0.5, 
+                      duration: 4.5, 
+                      times: [0, 0.4, 0.8, 1],
                       ease: "easeInOut",
-                      repeat: 0,
-                      delay: i * 0.2
+                      delay: i * 0.15
                     }}
                   />
                 ))}
